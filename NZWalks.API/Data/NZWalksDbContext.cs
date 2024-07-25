@@ -13,5 +13,17 @@ namespace NZWalks.API.Data
 
         public DbSet<Walk> Walks { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Walk>()
+                .HasOne(w => w.Difficulty)
+                .WithMany()
+                .HasForeignKey(w => w.DifficultyId);
+
+            modelBuilder.Entity<Walk>()
+                .HasOne(w => w.Region)
+                .WithMany()
+                .HasForeignKey(w => w.RegionId);
+        }
     }
 }
